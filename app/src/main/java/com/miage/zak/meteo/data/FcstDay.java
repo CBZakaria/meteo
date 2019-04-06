@@ -20,15 +20,16 @@ public class FcstDay {
     private String icon;
     private String icon_big;
 
-    public Object getHourlyData() {
+    private HourlyData hourlyData;
+
+    public HourlyData getHourlyData() {
         return hourlyData;
     }
 
-    public void setHourlyData(Object hourlyData) {
+    public void setHourlyData(HourlyData hourlyData) {
         this.hourlyData = hourlyData;
     }
 
-    private Object hourlyData;
 
 
     public String getDate() {
@@ -117,7 +118,7 @@ public class FcstDay {
         condition= object.getString("condition");
         condition_key= object.getString("condition_key");
         icon= object.getString("icon");
-        hourlyData = object.get("hourly_data");
+        hourlyData = new HourlyData(object.getJSONObject("hourly_data"));
         icon_big= object.getString("icon_big");
     }
     public String toJsonString(){
