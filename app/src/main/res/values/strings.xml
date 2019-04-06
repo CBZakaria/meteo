@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MiageMétéo</string>
+    <string name="welcome_to_meteo_app">Welcome To Meteo App</string>
+    <string name="login">Login</string>
+    <string name="password">Password (Optional)</string>
+    <string name="connexion">CONNEXION</string>
+    <string name="home">Accueil</string>
+    <string name="meteo">Météo</string>
+    <string name="m1_miage">M1 MIAGE</string>
+    <string name="weather_icon">weather icon</string>
+    <string name="title_activity_test">test</string>
+    <string name="title_activity_daily">DailyActivity</string>
+</resources>
