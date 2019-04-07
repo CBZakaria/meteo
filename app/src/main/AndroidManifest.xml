@@ -3,6 +3,8 @@
     package="com.miage.zak.meteo">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
 
     <application
         android:allowBackup="true"
@@ -14,9 +16,6 @@
         <activity
             android:name=".DailyActivity"
             android:label="@string/title_activity_daily"></activity>
-        <activity
-            android:name=".test"
-            android:label="@string/title_activity_test" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

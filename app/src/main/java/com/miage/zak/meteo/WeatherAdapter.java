@@ -58,10 +58,12 @@ public class WeatherAdapter extends ArrayAdapter<FcstDay> {
         ImageView imageView = rowView.findViewById(R.id.weather_ic);
         TextView weaterData = rowView.findViewById(R.id.tv_weather_data);
         TextView weatherDate = rowView.findViewById(R.id.tv_weather_date);
+        TextView mTminTmax = rowView.findViewById(R.id.tmin_max_tV);
 
         FcstDay dayToShow = getItem(position);
         weaterData.setText(dayToShow.getDay_long());
         weatherDate.setText(dayToShow.getDate());
+        mTminTmax.setText(dayToShow.getTmax()+ "° / "+dayToShow.getTmin()+"°");
         Picasso.get().load(dayToShow.getIcon_big()).into(imageView);
         return rowView;
     }

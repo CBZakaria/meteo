@@ -6,7 +6,7 @@
 
     <ImageView
         android:id="@+id/weather_ic"
-        android:layout_width="125dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_weight="1"
@@ -14,15 +14,15 @@
         android:scaleType="center" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="172dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_weather_data"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
+            android:layout_width="258dp"
+            android:layout_height="55dp"
             android:paddingLeft="16dp"
             android:text="TextView"
             android:textSize="24sp"
@@ -30,11 +30,21 @@
 
         <TextView
             android:id="@+id/tv_weather_date"
-            android:layout_width="match_parent"
+            android:layout_width="258dp"
             android:layout_height="54dp"
             android:paddingLeft="16dp"
             android:text="TextView"
             android:textSize="24sp"
             android:textStyle="italic" />
     </LinearLayout>
+    <TextView
+        android:id="@+id/tmin_max_tV"
+        android:layout_width="wrap_content"
+        android:layout_height="108dp"
+        android:paddingTop="32dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="TextView"
+        android:textSize="24sp"
+        android:textStyle="italic"/>
 </LinearLayout>

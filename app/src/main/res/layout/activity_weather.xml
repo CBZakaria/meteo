@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
+        android:paddingTop="8dp"
         android:textSize="34sp"
         android:textStyle="bold"
         app:fontFamily="casual" />
@@ -19,7 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"/>
+        android:layout_marginLeft="8dp"
+        android:background="#dadada"/>
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_Refresh"
         android:layout_width="match_parent"

@@ -20,6 +20,7 @@ public class DailyActivity extends Activity {
     private FcstDay dayDetails;
     private Hour hour;
     private TextView mCity;
+    private TextView mDateDetails;
     private ImageView tIconWeather;
     private TextView mTemperature;
     private TextView mTminTmax;
@@ -29,6 +30,7 @@ public class DailyActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily);
         mCity = findViewById(R.id.city_name);
+        mDateDetails = findViewById(R.id.date_details);
         tIconWeather = findViewById(R.id.weather_icon);
         mTemperature = findViewById(R.id.temperature_textV);
         mTminTmax = findViewById(R.id.tmin_max);
@@ -38,7 +40,8 @@ public class DailyActivity extends Activity {
         try {
             dayDetails = new FcstDay(new JSONObject(intent.getStringExtra("chosenDay")));
             hour = dayDetails.getHourlyData().get(getCurrentHour());
-            mCity.setText(dayDetails.getDay_long());
+            mCity.setText(intent.getStringExtra("CITY"));
+            mDateDetails.setText(getCurrentHour()+"H" +new Date().getMinutes()+" "+ dayDetails.getDate());
             mTemperature.setText(hour.getTMP2m()+"°");
             mTminTmax.setText(dayDetails.getTmax()+"° / " +dayDetails.getTmin()+"°");
             mConditiony.setText(hour.getCONDITION());
