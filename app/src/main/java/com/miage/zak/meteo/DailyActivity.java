@@ -3,6 +3,7 @@ package com.miage.zak.meteo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v4.app.NotificationCompat;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,7 +36,6 @@ public class DailyActivity extends Activity {
         mTemperature = findViewById(R.id.temperature_textV);
         mTminTmax = findViewById(R.id.tmin_max);
         mConditiony = findViewById(R.id.condition_tv);
-
         Intent intent = getIntent();
         try {
             dayDetails = new FcstDay(new JSONObject(intent.getStringExtra("chosenDay")));

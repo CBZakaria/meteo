@@ -1,13 +1,12 @@
 package com.miage.zak.meteo;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.AsyncTask;
+                                                                                  import android.os.AsyncTask;
 import android.os.Bundle;
 
 
@@ -26,12 +25,19 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.miage.zak.meteo.data.DonneesMeteo;
 import com.miage.zak.meteo.data.FcstDay;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 public class WeatherActivity extends AppCompatActivity {
 
@@ -40,11 +46,15 @@ public class WeatherActivity extends AppCompatActivity {
     private List<FcstDay> mWeatherDays = new ArrayList<FcstDay>();
     private ArrayAdapter<FcstDay> mWeatherAdapter;
     private TextView mWeatherCity;
+    private FusedLocationProviderClient fusedLocationClient;
+    private String weatherURL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
+        requestPermission();
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         mWeatherCity = findViewById(R.id.weather_city);
         mWeatherListV = findViewById(R.id.weather_listV);
         mRefresher = findViewById(R.id.swipe_Refresh);
@@ -95,25 +105,17 @@ public class WeatherActivity extends AppCompatActivity {
 
 
         private void callWebService() {
-            String url = "https://www.prevision-meteo.ch/services/json/grenoble";
-            RequestQueue queue = Volley.newRequestQueue(WeatherActivity.this);
 
-            StringRequest request = new StringRequest(Request.Method.GET, url,
+            RequestQueue queue = Volley.newRequestQueue(WeatherActivity.this);
+            getLocation();
+            StringRequest request = new StringRequest(Request.Method.GET, weatherURL,
                     new Response.Listener<String>() {
                         DonneesMeteo donneesMeteo;
 
                         @Override
                         public void onResponse(String response) {
                             donneesMeteo = new DonneesMeteo(response);
-                            mWeatherCity.setText(donneesMeteo.getCityInfo().getName());
-                            mWeatherDays.clear();
-                            mWeatherDays.add(donneesMeteo.getFcstDay0());
-                            mWeatherDays.add(donneesMeteo.getFcstDay1());
-                            mWeatherDays.add(donneesMeteo.getFcstDay2());
-                            mWeatherDays.add(donneesMeteo.getFcstDay3());
-                            mWeatherDays.add(donneesMeteo.getFcstDay4());
-
-                            mWeatherAdapter.addAll(mWeatherDays);
+                            addWeatherInfo(donneesMeteo);
                         }
                     },
                     new Response.ErrorListener() {
@@ -125,37 +127,57 @@ public class WeatherActivity extends AppCompatActivity {
             queue.add(request);
         }
     }
+    private void requestPermission () {
+        ActivityCompat.requestPermissions(this, new String[] {ACCESS_FINE_LOCATION},1);
+    }
 
     private void refreshFromInternet() {
         mRefresher.setRefreshing(true);
         new FetchWeatheerTask().execute();
         mRefresher.setRefreshing(false);
-    }
-    private void updateWithNewLocation(Location location) {
-        TextView myLocationText = (TextView) findViewById(R.id.text);
-        String latLongString = "";
-        if (location != null) {
-            double lat = location.getLatitude();
-            double lng = location.getLongitude();
-            latLongString = "Lat:" + lat + "\nLong:" + lng;
-        } else {
-            latLongString = "No location found";
-        }
-        myLocationText.setText("Your Current Position is:\n" + latLongString);
+
     }
 
-    private final LocationListener locationListener = new LocationListener() {
-
-        public void onLocationChanged(Location location) {
-            updateWithNewLocation(location);
+    private void getLocation () {
+        if (ActivityCompat.checkSelfPermission(WeatherActivity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(WeatherActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
         }
+        mWeatherCity.setText("Grenoble");
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(WeatherActivity.this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        String url = "https://www.prevision-meteo.ch/services/json/grenoble";
+                        if (location != null) {
+                            double longitude = location.getLongitude();
+                            double latitude = location.getLatitude();
+                            url = "https://www.prevision-meteo.ch/services/json/lat="+latitude+"lng="+longitude;
+                            Geocoder gcd = new Geocoder(WeatherActivity.this, Locale.getDefault());
+                            List<Address> addresses = null;
+                            try {
+                                addresses = gcd.getFromLocation(latitude, longitude, 1);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            if (addresses.size() > 0) {
+                                String cityName = addresses.get(0).getLocality();
+                                mWeatherCity.setText(cityName);
+                            }
+                        }
+                        weatherURL = url;
+                    }
+                });
+    }
 
-        public void onProviderDisabled(String provider) {
-            updateWithNewLocation(null);
-        }
+    private void addWeatherInfo (DonneesMeteo donneesMeteo) {
+        mWeatherDays.clear();
+        mWeatherDays.add(donneesMeteo.getFcstDay0());
+        mWeatherDays.add(donneesMeteo.getFcstDay1());
+        mWeatherDays.add(donneesMeteo.getFcstDay2());
+        mWeatherDays.add(donneesMeteo.getFcstDay3());
+        mWeatherDays.add(donneesMeteo.getFcstDay4());
+        mWeatherAdapter.addAll(mWeatherDays);
 
-        public void onProviderEnabled(String provider) {}
+    }
 
-        public void onStatusChanged(String provider,int status,Bundle extras){}
-    };
 }
