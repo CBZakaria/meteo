@@ -10,4 +10,7 @@
     <string name="weather_icon">weather icon</string>
     <string name="title_activity_test">test</string>
     <string name="title_activity_daily">DailyActivity</string>
+    <string name="email">Email</string>
+    <string name="cloudlogo">cloudLogo</string>
+    <string name="logo">Logo</string>
 </resources>

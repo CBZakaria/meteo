@@ -14,29 +14,23 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mLogin;
     private EditText mPassword;
     private Button mConnection;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        mLogin = findViewById(R.id.email_edt);
-        mPassword = findViewById(R.id.password_edt);
-        mConnection = findViewById(R.id.connection_btn);
-
-        mConnection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mLogin.getText().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(),"Veuillez saisir votre login",Toast.LENGTH_SHORT ).show();
-                } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(mLogin.getText().toString()).matches()){
-                    Toast.makeText(getApplicationContext(),"Veuillez saisir votre mail",Toast.LENGTH_SHORT ).show();
-                }
-                else {
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                    startActivity(intent);
-                }
-            }
-        });
+        mLogin = findViewById(R.id.editEmail);
+        mPassword = findViewById(R.id.editPwd);
+        mConnection = findViewById(R.id.buttonLogin);
     }
-
-
+        public void authenticate(View view){
+            if (mLogin.getText().toString().equals("")) {
+                Toast.makeText(getApplicationContext(), "Veuillez saisir votre login", Toast.LENGTH_SHORT).show();
+            } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(mLogin.getText().toString()).matches()) {
+                Toast.makeText(getApplicationContext(), "Veuillez saisir votre mail", Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        }
 }
