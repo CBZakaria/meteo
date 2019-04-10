@@ -25,6 +25,7 @@
             android:layout_height="55dp"
             android:paddingLeft="16dp"
             android:text="TextView"
+            android:textColor="@android:color/white"
             android:textSize="24sp"
             android:textStyle="bold|italic" />
 
@@ -34,17 +35,20 @@
             android:layout_height="54dp"
             android:paddingLeft="16dp"
             android:text="TextView"
+            android:textColor="@android:color/white"
             android:textSize="24sp"
             android:textStyle="italic" />
     </LinearLayout>
+
     <TextView
         android:id="@+id/tmin_max_tV"
         android:layout_width="wrap_content"
         android:layout_height="108dp"
-        android:paddingTop="32dp"
         android:paddingLeft="16dp"
+        android:paddingTop="32dp"
         android:paddingRight="16dp"
         android:text="TextView"
+        android:textColor="@android:color/white"
         android:textSize="24sp"
-        android:textStyle="italic"/>
+        android:textStyle="italic" />
 </LinearLayout>

@@ -5,7 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/new_login_gradients"
     tools:context=".DailyActivity">
+
+    <ImageView
+        android:id="@+id/weather_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_weather" />
 
     <TextView
         android:id="@+id/city_name"
@@ -18,6 +31,7 @@
         android:layout_marginRight="8dp"
         android:text="TextView"
         android:textAlignment="center"
+        android:textColor="@android:color/white"
         android:textSize="42sp" />
 
     <TextView
@@ -30,8 +44,8 @@
         android:layout_marginRight="8dp"
         android:text="TextView"
         android:textAlignment="center"
-        android:textSize="42sp"
-        app:fontFamily="cursive" />
+        android:textColor="@android:color/white"
+        android:textSize="42sp" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -48,25 +62,12 @@
             android:paddingTop="8.5dp"
             android:text="TextView"
             android:textAlignment="center"
+            android:textColor="@android:color/white"
             android:textSize="32sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/weather_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_marginStart="64dp"
-            android:layout_marginLeft="64dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_weather"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+
     </android.support.constraint.ConstraintLayout>
 
     <TextView
@@ -80,7 +81,8 @@
         android:layout_marginRight="8dp"
         android:text="TextView"
         android:textAlignment="center"
-        android:textSize="24sp"/>
+        android:textColor="@android:color/white"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/condition_tv"
@@ -93,5 +95,6 @@
         android:layout_marginRight="8dp"
         android:text="TextView"
         android:textAlignment="center"
-        android:textSize="24sp"/>
+        android:textColor="@android:color/white"
+        android:textSize="24sp" />
 </LinearLayout>
