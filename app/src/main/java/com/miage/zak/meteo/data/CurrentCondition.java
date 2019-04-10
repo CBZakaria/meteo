@@ -117,18 +117,19 @@ public class CurrentCondition {
     public void setIcon_big(String icon_big) {
         this.icon_big = icon_big;
     }
+
     public CurrentCondition(JSONObject object) throws JSONException {
-        String date = object.getString("date");
-        String hour = object.getString("hour");
-        float tmp = object.getLong("tmp");
-        float wnd_spd = object.getLong("wnd_spd");
-        float wnd_gust = object.getLong("wnd_gust");
-        String wnd_dir = object.getString("wnd_dir");
-        float pressure = object.getLong("pressure");
-        float humidity = object.getLong("humidity");
-        String condition = object.getString("condition");
-        String condition_key = object.getString("condition_key");
-        String icon = object.getString("icon");
-        String icon_big = object.getString("icon_big");
+        date = object.getString("date");
+        hour = object.getString("hour");
+        tmp = object.getLong("tmp");
+        wnd_spd = object.getLong("wnd_spd");
+        wnd_gust = object.getLong("wnd_gust");
+        wnd_dir = object.getString("wnd_dir");
+        pressure = object.getLong("pressure");
+        humidity = object.getLong("humidity");
+        condition = object.getString("condition");
+        condition_key = object.getString("condition_key");
+        icon = object.getString("icon");
+        icon_big = object.getString("icon_big");
     }
 }
