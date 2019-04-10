@@ -72,6 +72,7 @@ public class WeatherActivity extends AppCompatActivity {
                 refreshFromInternet();
             }
         }, 0);
+
         mWeatherListV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -94,8 +95,8 @@ public class WeatherActivity extends AppCompatActivity {
 
         @Override
         protected DonneesMeteo doInBackground(String... urls) {
-            callWebService();
-            return null;
+                callWebService();
+                return null;
         }
 
         @Override
@@ -105,13 +106,12 @@ public class WeatherActivity extends AppCompatActivity {
 
 
         private void callWebService() {
-
             RequestQueue queue = Volley.newRequestQueue(WeatherActivity.this);
             getLocation();
             StringRequest request = new StringRequest(Request.Method.GET, weatherURL,
                     new Response.Listener<String>() {
-                        DonneesMeteo donneesMeteo;
 
+                        DonneesMeteo donneesMeteo;
                         @Override
                         public void onResponse(String response) {
                             donneesMeteo = new DonneesMeteo(response);
@@ -142,16 +142,16 @@ public class WeatherActivity extends AppCompatActivity {
         if (ActivityCompat.checkSelfPermission(WeatherActivity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(WeatherActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        mWeatherCity.setText("Grenoble");
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(WeatherActivity.this, new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
-                        String url = "https://www.prevision-meteo.ch/services/json/grenoble";
+                        mWeatherCity.setText("Grenoble");
+                        String url = "http://www.prevision-meteo.ch/services/json/grenoble";
                         if (location != null) {
                             double longitude = location.getLongitude();
                             double latitude = location.getLatitude();
-                            url = "https://www.prevision-meteo.ch/services/json/lat="+latitude+"lng="+longitude;
+                            url = "http://www.prevision-meteo.ch/services/json/lat="+latitude+"lng="+longitude;
                             Geocoder gcd = new Geocoder(WeatherActivity.this, Locale.getDefault());
                             List<Address> addresses = null;
                             try {
@@ -159,7 +159,7 @@ public class WeatherActivity extends AppCompatActivity {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            if (addresses.size() > 0) {
+                            if (addresses.size() > 0 && addresses != null) {
                                 String cityName = addresses.get(0).getLocality();
                                 mWeatherCity.setText(cityName);
                             }

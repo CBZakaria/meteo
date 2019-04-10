@@ -3,7 +3,6 @@ package com.miage.zak.meteo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
-import android.support.v4.app.NotificationCompat;
 import android.widget.ImageView;
 import android.widget.TextView;
 
